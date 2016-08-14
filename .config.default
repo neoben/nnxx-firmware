@@ -39,3 +39,6 @@ CONFIG_PACKAGE_kmod-fs-ext4=yes
 CONFIG_PACKAGE_kmod-fs-vfat=yes
 CONFIG_PACKAGE_kmod-usb-storage=yes
 CONFIG_PACKAGE_kmod-usb-storage-extras=yes
+
+#Enable QoS
+CONFIG_PACKAGE_qos-scripts=y
