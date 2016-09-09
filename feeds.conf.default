@@ -1,6 +1,5 @@
 # lasciare <PACKAGES_BRANCH>
-# lo script di compilazione metterà il valore giusto in base
-# all'opzione --release
+# lo script di compilazione metterà il valore giusto in base all'opzione --release
 
 src-git packages https://github.com/openwrt/packages.git;<PACKAGES_BRANCH>
 src-git luci https://github.com/openwrt/luci.git;<PACKAGES_BRANCH>
