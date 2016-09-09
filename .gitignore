@@ -3,6 +3,7 @@ feeds.conf
 
 openwrt*/
 lede*/
+chaos*/
 *.DS_Store
 packages/
 *.komodoproject
