@@ -2,17 +2,17 @@
 set -e  # strict mode
 
 show_help() {
-	echo "Compile lede based nnxx firmware;
+	echo "Compile chaos based nnxx firmware;
 
 Usage: ./compile.sh [<OPTIONS>...]
 
 OPTIONS:
 
        -a | --archs     SoC architectures separated by space, defaults to 'ar71xx'
-       -r | --release   Optional LEDE release; if omitted will build latest master branch
+       -r | --release   Optional CHAOS release; if omitted will build latest master branch
        -p | --profile   Optional customizations for specific ninux communities, eg: basilicata, palermo, campania
        -w | --www       An optional directory where resulting binaries will be moved
-                        If omitted binaries won't be moved from the LEDE bin directory
+                        If omitted binaries won't be moved from the CHAOS bin directory
        -j | --jobs      Amount of parallel jobs during compilation, defaults to 1
 ";
 }
@@ -44,8 +44,8 @@ RELEASE="${RELEASE:-master}"
 ARCHS="${ARCHS:-ar71xx}"
 JOBS=${JOBS:-1}
 
-LEDE_DIR="lede"
-LEDE_GIT="http://git.lede-project.org/source.git"
+CHAOS_DIR="chaos"
+CHAOS_GIT="git://git.openwrt.org/15.05/openwrt.git"
 PACKAGES_BRANCH="master"
 
 DEFAULT_FEEDS="feeds.conf.default"
@@ -67,12 +67,12 @@ else
 	CONFIG=$(cat "$DEFAULT_CONFIG")
 fi
 
-if [ -d $LEDE_DIR ]; then
-	cd $LEDE_DIR
+if [ -d $CHAOS_DIR ]; then
+	cd $CHAOS_DIR
 	git pull
 else
-	git clone $LEDE_GIT $LEDE_DIR
-	cd $LEDE_DIR
+	git clone $CHAOS_GIT $CHAOS_DIR
+	cd $CHAOS_DIR
 fi
 
 if [[ "$RELEASE" != "master" ]]; then
@@ -117,7 +117,7 @@ done
 
 # publish binaries if -w|-www option is supplied
 if [ -n "$WWW_DIR" ]; then
-	BUILD_DIR="$WWW_DIR/lede-$RELEASE/$REVISION"
+	BUILD_DIR="$WWW_DIR/chaos-$RELEASE/$REVISION"
 	if [ -d "$BUILD_DIR" ]; then
 		rm -rf $BUILD_DIR
 	fi
@@ -129,8 +129,8 @@ if [ -n "$WWW_DIR" ]; then
 	echo "Cleaning bin dir"
 	rm -rf ./bin/*
 	# update symbolic link to latest build
-	if [ -h "$WWW_DIR/lede-$RELEASE/latest" ]; then
-		rm "$WWW_DIR/lede-$RELEASE/latest"
+	if [ -h "$WWW_DIR/chaos-$RELEASE/latest" ]; then
+		rm "$WWW_DIR/chaos-$RELEASE/latest"
 	fi
-	ln -s "$WWW_DIR/lede-$RELEASE/$REVISION" "$WWW_DIR/lede-$RELEASE/latest"
+	ln -s "$WWW_DIR/chaos-$RELEASE/$REVISION" "$WWW_DIR/chaos-$RELEASE/latest"
 fi
